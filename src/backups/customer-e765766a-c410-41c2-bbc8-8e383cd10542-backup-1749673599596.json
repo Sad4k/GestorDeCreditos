@@ -1,0 +1,26 @@
+{
+  "deletedAt": "2025-06-11T20:26:39.596Z",
+  "customer": {
+    "id": "e765766a-c410-41c2-bbc8-8e383cd10542",
+    "name": "ROMERO YOSMERIS",
+    "phone": "",
+    "address": "VALLAYGUANA"
+  },
+  "credits": [
+    {
+      "id": "77321b4f-c540-4233-8875-e4d6fa0a2e4a",
+      "customerId": "e765766a-c410-41c2-bbc8-8e383cd10542",
+      "amount": 8900356498,
+      "date": "2025-06-11T20:23:04.287Z",
+      "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "c6a76a6d-abc3-43c8-b2fa-23c6b2fa0d74",
+      "creditId": "77321b4f-c540-4233-8875-e4d6fa0a2e4a",
+      "amount": 5,
+      "date": "2025-06-11T20:23:17.833Z"
+    }
+  ]
+}

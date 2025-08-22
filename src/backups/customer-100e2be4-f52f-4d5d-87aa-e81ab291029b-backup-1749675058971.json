@@ -1,0 +1,26 @@
+{
+  "deletedAt": "2025-06-11T20:50:58.971Z",
+  "customer": {
+    "id": "100e2be4-f52f-4d5d-87aa-e81ab291029b",
+    "name": "Lorenzo Jimenez",
+    "phone": "",
+    "address": ""
+  },
+  "credits": [
+    {
+      "id": "350d9bf3-88f9-4e48-875f-d99d0bfdbbbb",
+      "customerId": "100e2be4-f52f-4d5d-87aa-e81ab291029b",
+      "amount": 3500,
+      "date": "2025-06-11T15:12:47.124Z",
+      "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "f9292c2f-21b3-48ae-9c36-db12404b6dd0",
+      "creditId": "350d9bf3-88f9-4e48-875f-d99d0bfdbbbb",
+      "amount": 1500,
+      "date": "2025-06-11T15:13:06.273Z"
+    }
+  ]
+}

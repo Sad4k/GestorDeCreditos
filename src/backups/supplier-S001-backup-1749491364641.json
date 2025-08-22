@@ -1,0 +1,20 @@
+{
+  "deletedAt": "2025-06-09T17:49:24.640Z",
+  "supplier": {
+    "id": "S001",
+    "name": "Proveedora XYZ",
+    "phone": "555-7890",
+    "email": "ventas@xyz.com",
+    "address": "Parque Industrial 89",
+    "notes": "Entrega mensual"
+  },
+  "payments": [
+    {
+      "id": "SP001",
+      "supplierId": "S001",
+      "amount": 1200,
+      "date": "2025-06-02",
+      "notes": "Pago por lotes de junio"
+    }
+  ]
+}

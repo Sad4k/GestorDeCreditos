@@ -1,0 +1,53 @@
+{
+  "deletedAt": "2025-06-08T20:25:37.001Z",
+  "customer": {
+    "id": "C001",
+    "name": "Luis Herrera",
+    "phone": "555-1234",
+    "address": "Calle Falsa 123"
+  },
+  "credits": [
+    {
+      "id": "CR001",
+      "customerId": "C001",
+      "amount": 1500,
+      "date": "2025-06-01",
+      "status": "active"
+    },
+    {
+      "id": "df450176-20ed-4576-9e76-521d1ea38e7a",
+      "customerId": "C001",
+      "amount": 3500,
+      "date": "2025-06-08T20:21:57.345Z",
+      "status": "active"
+    },
+    {
+      "id": "99393cfe-606a-4714-a2a1-8fa8bf912e59",
+      "customerId": "C001",
+      "amount": 9800,
+      "date": "2025-06-08T20:23:42.596Z",
+      "status": "active"
+    },
+    {
+      "id": "0e2940e6-7fbf-4c30-853c-62fb0104332a",
+      "customerId": "C001",
+      "amount": 13590,
+      "date": "2025-06-08T20:24:58.507Z",
+      "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "P001",
+      "creditId": "CR001",
+      "amount": 500,
+      "date": "2025-06-02"
+    },
+    {
+      "id": "P002",
+      "creditId": "CR001",
+      "amount": 300,
+      "date": "2025-06-04"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "deletedAt": "2025-06-08T20:02:09.183Z",
+  "customer": {
+    "id": "C002",
+    "name": "Marta Ruiz",
+    "phone": "555-5678",
+    "address": "Av. del Sol 456"
+  },
+  "credits": [
+    {
+      "id": "CR002",
+      "customerId": "C002",
+      "amount": 850,
+      "date": "2025-06-03",
+      "status": "paid"
+    }
+  ],
+  "payments": [
+    {
+      "id": "P003",
+      "creditId": "CR002",
+      "amount": 850,
+      "date": "2025-06-05"
+    }
+  ]
+}

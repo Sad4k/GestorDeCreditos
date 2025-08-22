@@ -1,0 +1,44 @@
+{
+  "deletedAt": "2025-06-11T20:51:00.769Z",
+  "customer": {
+    "id": "742c6e43-eb53-4532-806b-b1af7ab1b904",
+    "name": "Luis Herrera",
+    "phone": "5553428400",
+    "address": "C. Falsa 445"
+  },
+  "credits": [
+    {
+      "id": "06426884-1a0d-4315-bd9b-68b7c24a2842",
+      "customerId": "742c6e43-eb53-4532-806b-b1af7ab1b904",
+      "amount": 5600,
+      "date": "2025-06-11T14:35:50.739Z",
+      "status": "paid"
+    }
+  ],
+  "payments": [
+    {
+      "id": "cf1ca92d-700d-49aa-805a-4884eb9bd27a",
+      "creditId": "06426884-1a0d-4315-bd9b-68b7c24a2842",
+      "amount": 12,
+      "date": "2025-06-11T14:36:10.144Z"
+    },
+    {
+      "id": "f9f99b03-c75d-457a-8a52-5dc38e5cab35",
+      "creditId": "06426884-1a0d-4315-bd9b-68b7c24a2842",
+      "amount": 560,
+      "date": "2025-06-11T14:57:50.398Z"
+    },
+    {
+      "id": "19a6bb52-3e89-44b8-8729-f9364e573a04",
+      "creditId": "06426884-1a0d-4315-bd9b-68b7c24a2842",
+      "amount": 1200,
+      "date": "2025-06-11T15:02:28.703Z"
+    },
+    {
+      "id": "dc3df05b-04b7-491f-bce6-31f18adeaf28",
+      "creditId": "06426884-1a0d-4315-bd9b-68b7c24a2842",
+      "amount": 3828,
+      "date": "2025-06-11T20:29:37.819Z"
+    }
+  ]
+}

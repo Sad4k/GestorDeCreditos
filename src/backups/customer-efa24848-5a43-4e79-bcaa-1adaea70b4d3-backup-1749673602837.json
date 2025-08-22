@@ -1,0 +1,26 @@
+{
+  "deletedAt": "2025-06-11T20:26:42.837Z",
+  "customer": {
+    "id": "efa24848-5a43-4e79-bcaa-1adaea70b4d3",
+    "name": "Yosmeris Romero",
+    "phone": "",
+    "address": ""
+  },
+  "credits": [
+    {
+      "id": "672c7c7d-f20c-42a4-b528-e04b6cc8c9d4",
+      "customerId": "efa24848-5a43-4e79-bcaa-1adaea70b4d3",
+      "amount": 85000,
+      "date": "2025-06-11T19:52:36.106Z",
+      "status": "active"
+    },
+    {
+      "id": "0df3d757-214a-45e4-96f1-9443774f18d9",
+      "customerId": "efa24848-5a43-4e79-bcaa-1adaea70b4d3",
+      "amount": 8600,
+      "date": "2025-06-11T19:58:10.359Z",
+      "status": "active"
+    }
+  ],
+  "payments": []
+}

@@ -1,0 +1,20 @@
+{
+  "deletedAt": "2025-06-11T20:24:51.801Z",
+  "supplier": {
+    "id": "349b04c8-9164-426f-a42b-d159724a2b2d",
+    "name": "Vendedor de aguacates",
+    "phone": "8222568",
+    "email": "",
+    "address": "",
+    "notes": ""
+  },
+  "payments": [
+    {
+      "id": "5c6be580-4b05-4150-bce8-fcc6418d06bf",
+      "supplierId": "349b04c8-9164-426f-a42b-d159724a2b2d",
+      "amount": 6500,
+      "date": "2025-06-11",
+      "notes": ""
+    }
+  ]
+}

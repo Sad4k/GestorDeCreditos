@@ -1,0 +1,26 @@
+{
+  "deletedAt": "2025-06-08T20:27:06.113Z",
+  "customer": {
+    "id": "4c88a50d-13d3-4a53-a606-123d374ccf4b",
+    "name": "Luis Herrera",
+    "phone": "3121286800",
+    "address": "C. Falsa 445"
+  },
+  "credits": [
+    {
+      "id": "59781f72-4dda-4ace-9c48-485208231b2a",
+      "customerId": "4c88a50d-13d3-4a53-a606-123d374ccf4b",
+      "amount": 2460,
+      "date": "2025-06-08T20:26:35.603Z",
+      "status": "active"
+    },
+    {
+      "id": "79796eb4-a95e-4db3-af70-8b7fc275b849",
+      "customerId": "4c88a50d-13d3-4a53-a606-123d374ccf4b",
+      "amount": 80900,
+      "date": "2025-06-08T20:26:43.658Z",
+      "status": "active"
+    }
+  ],
+  "payments": []
+}

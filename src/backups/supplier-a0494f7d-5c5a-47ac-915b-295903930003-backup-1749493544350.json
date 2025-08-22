@@ -1,0 +1,12 @@
+{
+  "deletedAt": "2025-06-09T18:25:44.251Z",
+  "supplier": {
+    "id": "a0494f7d-5c5a-47ac-915b-295903930003",
+    "name": "Vendedor de aguacates",
+    "phone": "8222568",
+    "email": "",
+    "address": "Fake Street 1960",
+    "notes": "Visitas los Martes a las 12:00pm"
+  },
+  "payments": []
+}

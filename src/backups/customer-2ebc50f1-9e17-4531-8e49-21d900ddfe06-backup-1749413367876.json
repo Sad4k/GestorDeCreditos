@@ -1,0 +1,11 @@
+{
+  "deletedAt": "2025-06-08T20:09:27.876Z",
+  "customer": {
+    "id": "2ebc50f1-9e17-4531-8e49-21d900ddfe06",
+    "name": "Juan Francisco García Flores",
+    "phone": "5553428400",
+    "address": "C. Falsa 445"
+  },
+  "credits": [],
+  "payments": []
+}

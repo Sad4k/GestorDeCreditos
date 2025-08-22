@@ -1,0 +1,51 @@
+{
+  "deletedAt": "2025-08-22T03:05:07.279Z",
+  "customer": {
+    "id": "5cc066ae-3556-43ac-8250-3ac7e535dd72",
+    "name": "CARLOS",
+    "phone": "8679808Y8",
+    "address": "CAPITAL CTY"
+  },
+  "credits": [
+    {
+      "id": "8fcf589a-a32d-4fab-a5bc-0974b6a8ee58",
+      "customerId": "5cc066ae-3556-43ac-8250-3ac7e535dd72",
+      "amount": 8099,
+      "date": "2025-06-26T23:52:46.422Z",
+      "status": "paid"
+    },
+    {
+      "id": "53af763c-89f5-4612-8fef-c70c721b88de",
+      "customerId": "5cc066ae-3556-43ac-8250-3ac7e535dd72",
+      "amount": 12500,
+      "date": "2025-08-22T02:45:04.896Z",
+      "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "8bb08c9f-b8c1-444a-86fb-aa68291841c2",
+      "creditId": "8fcf589a-a32d-4fab-a5bc-0974b6a8ee58",
+      "amount": 7500,
+      "date": "2025-06-26T23:53:13.712Z"
+    },
+    {
+      "id": "59434627-16e1-4a93-93bd-1e58d51c2368",
+      "creditId": "8fcf589a-a32d-4fab-a5bc-0974b6a8ee58",
+      "amount": 599,
+      "date": "2025-06-26T23:53:31.656Z"
+    },
+    {
+      "id": "456ad3ee-4676-4b33-ad3b-ed0832d7cb8a",
+      "creditId": "53af763c-89f5-4612-8fef-c70c721b88de",
+      "amount": 340,
+      "date": "2025-08-22T02:45:24.160Z"
+    },
+    {
+      "id": "3aa3036f-b387-4a4c-9662-b733ebbf4cd7",
+      "creditId": "53af763c-89f5-4612-8fef-c70c721b88de",
+      "amount": 700,
+      "date": "2025-08-22T02:45:53.903Z"
+    }
+  ]
+}

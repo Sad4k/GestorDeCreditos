@@ -1,0 +1,26 @@
+{
+  "deletedAt": "2025-06-11T01:00:58.242Z",
+  "customer": {
+    "id": "2a413558-0619-4eb7-b8cd-ab84bf10e942",
+    "name": "Maysao",
+    "phone": "Duranao",
+    "address": ""
+  },
+  "credits": [
+    {
+      "id": "ac91a8c0-f46c-4dab-8812-985d32a04f5a",
+      "customerId": "2a413558-0619-4eb7-b8cd-ab84bf10e942",
+      "amount": 63000,
+      "date": "2025-06-11T00:59:00.372Z",
+      "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "dc048471-ca61-42a1-a552-9405dfa72f78",
+      "creditId": "ac91a8c0-f46c-4dab-8812-985d32a04f5a",
+      "amount": 3000,
+      "date": "2025-06-11T00:59:19.985Z"
+    }
+  ]
+}

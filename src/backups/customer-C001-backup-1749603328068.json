@@ -1,0 +1,32 @@
+{
+  "deletedAt": "2025-06-11T00:55:28.068Z",
+  "customer": {
+    "id": "C001",
+    "name": "Luis Herrera",
+    "phone": "555-1234",
+    "address": "Calle Falsa 123"
+  },
+  "credits": [
+    {
+      "id": "CR001",
+      "customerId": "C001",
+      "amount": 1500,
+      "date": "2025-06-01",
+      "status": "active"
+    }
+  ],
+  "payments": [
+    {
+      "id": "P001",
+      "creditId": "CR001",
+      "amount": 500,
+      "date": "2025-06-02"
+    },
+    {
+      "id": "P002",
+      "creditId": "CR001",
+      "amount": 300,
+      "date": "2025-06-04"
+    }
+  ]
+}

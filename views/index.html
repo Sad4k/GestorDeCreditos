@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Crédito y Pagos</title>  
+    <link rel="icon" href="/img/favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Rouge+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/all.min.css"/>
+    <script type="importmap">
+      {
+        "imports": {
+          "uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/index.js"
+        }
+      }
+    </script>
+    <!-- Load Chart.js globally via script tag -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <!-- Load jsPDF and jsPDF-AutoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <script type="module" src="../js/api.js"></script>
+    <script type="module" src="../js/main.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <nav id="main-nav">
+            <div class="app-logo-container" id="logo">
+                <h1>Gestor de Creditos</h1>
+                <a>By Sad4K</a> 
+                <span id="appVersion">ver 1.0.1</span> 
+            </div>
+            <div class="nav-actions">
+                <button id="show-dashboard-btn" class="nav-btn"><i class="fa-solid fa-chart-simple"></i><a>Resumen</a></button>
+                <button id="show-customers-btn" class="nav-btn"><i class="fa-solid fa-users"></i><a>Clientes</a></button>
+                <button id="show-suppliers-btn" class="nav-btn"><i class="fa-solid fa-truck"></i><a>Suplidores</a></button>
+                <button id="show-daily-sales-btn" class="nav-btn"><i class="fa-solid fa-cart-shopping"></i><a>Ventas Diarias</a></button>
+                <button id="show-settings-btn" class="nav-btn"><i class="fa-solid fa-sliders"></i><a>Configuración</a></button>
+            </div>
+            <button id="theme-toggle-btn" aria-label="Toggle theme">
+                <svg id="theme-icon-light" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg id="theme-icon-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </nav>
+        <main id="app-container">
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view active">
+                <h2>Resumen del Sistema</h2>
+                <div id="dashboard-stats" class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Clientes Registrados</h3>
+                        <p id="stat-total-customers">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Créditos Activos</h3>
+                        <p id="stat-active-credits">-</p>
+                    </div>
+                     <div class="stat-card">
+                        <h3>Saldo Pendiente Total</h3>
+                        <p id="stat-total-balance">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Pagos a Suplidores (Mes Actual)</h3>
+                        <p id="stat-supplier-payments-month">-</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Ventas Totales (Hoy)</h3>
+                        <p id="stat-daily-sales-today">-</p>
+                    </div>
+                </div>
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Estado de Créditos</h3>
+                        <canvas id="credits-status-chart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Actividad Mensual (Últimos 6 meses)</h3>
+                        <canvas id="monthly-activity-chart"></canvas>
+                    </div>
+                </div>
+                 <div id="dashboard-quick-access" hidden>
+                    <h3>Acciones Rápidas</h3>
+                    <button id="dashboard-show-customers-btn">Ver Clientes</button>
+                    <button id="dashboard-add-customer-btn">Nuevo Cliente</button>
+                    <button id="dashboard-show-suppliers-btn">Ver Suplidores</button>
+                    <button id="dashboard-record-daily-sale-btn">Registrar Venta Diaria</button>
+                </div>
+            </div>
+
+            <!-- Customers View -->
+            <div id="customers-view" class="view">
+                <button id="back-to-customer-actions-from-list-btn" class="button-secondary back-button">&larr; Volver a Opciones de Cliente</button>
+                <h2>Clientes Registrados</h2>
+                <div class="search-bar-container">
+                    <input type="search" id="search-customer" placeholder="Buscar cliente por nombre o teléfono...">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <div class="table-responsive">
+                    <table id="customer-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customer-list-tbody">
+                            <!-- Customer rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-customers-message" class="empty-list-message hidden">No hay clientes registrados. Puede agregar uno usando el botón "Nuevo Cliente".</p>
+            </div>
+
+             <!-- Customers View -->
+             <div id="active-credits-view" class="view">
+                <button id="back-to-customer-actions-from-credit-list-btn" class="button-secondary back-button">&larr; Volver a Opciones de Cliente</button>
+                <h2>Creditos Activos</h2>
+                <div class="customer-summary-info">
+                    <h3>Resumen Financiero</h3>
+                    <p><strong>Saldo Pendiente Total:</strong> <span id="credits-total-balance" class="total-balance-value">-</span></p>
+                </div>
+                <div class="search-bar-container">
+                    <input type="search" id="search-credits" placeholder="Buscar credito...">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <div class="table-responsive">
+                    <table id="active-credits-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Adeudado</th>
+                                <th>Pagos realizados</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="active-credits-list-tbody">
+                            <!-- Customer rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add Customer View/Form -->
+            <div id="add-customer-view" class="view">
+                <h2 id="addCustomerTitle">Nuevo Cliente</h2>
+                <form id="add-customer-form">
+                    <div>
+                        <label for="customer-name">Nombre:</label>
+                        <input type="text" id="customer-name" required placeholder="Nombre completo del cliente">
+                    </div>
+                    <div>
+                        <label for="customer-phone">Teléfono:</label>
+                        <input type="tel" id="customer-phone" placeholder="Número de teléfono">
+                    </div>
+                    <div>
+                        <label for="customer-address">Dirección:</label>
+                        <input type="text" id="customer-address" placeholder="Dirección del cliente">
+                    </div>
+                    <button type="submit">Guardar Cliente</button>
+                    <button type="button" id="back-to-customer-actions-from-add-btn" class="button-secondary">Volver</button>
+                </form>
+            </div>
+
+            <!-- Customer Details View -->
+            <div id="customer-details-view" class="view">
+                <button class="back-button" id="back-to-customers-btn">&larr; Volver a Clientes</button>
+                <h2 id="customer-detail-name"></h2>
+                <div class="customer-info-grid">
+                    <p><strong>Teléfono:</strong> <span id="customer-detail-phone"></span></p>
+                    <p><strong>Dirección:</strong> <span id="customer-detail-address"></span></p>
+                </div>
+
+                <div class="customer-summary-info">
+                    <h3>Resumen Financiero del Cliente</h3>
+                    <p><strong>Saldo Pendiente Total:</strong> <span id="customer-detail-total-balance" class="total-balance-value">-</span></p>
+                </div>
+
+                <div class="customer-actions-bar">
+                    <button id="print-customer-report-pdf-btn" class="button-secondary">Reporte Cliente (PDF)</button>
+                    <button id="print-customer-receipt-btn" class="button-secondary">Imprimir Recibo Cliente</button>
+                    <button id="print-customer-active-credits-report-pdf-btn" class="button-secondary">Reporte Activos (PDF)</button>
+                    <button id="print-customer-active-credits-receipt-btn" class="button-secondary">Recibo Activos</button>
+                </div>
+                
+                <h3>Créditos</h3>
+                <button id="add-credit-btn">Nuevo Crédito</button>
+                <div id="add-credit-form-container" class="hidden form-container">
+                    <h4>Registrar Nuevo Crédito</h4>
+                    <form id="add-credit-form">
+                        <div>
+                            <label for="credit-amount">Monto:</label>
+                            <input type="number" id="credit-amount" step="0.01" required placeholder="Ej: 150.00">
+                        </div>
+                        <button type="submit">Registrar Crédito</button>
+                        <button type="button" id="cancel-add-credit">Cancelar</button>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table id="customer-credits-table">
+                        <thead>
+                            <tr>
+                                <th>Monto Principal</th>
+                                <th>Saldo Pendiente</th>
+                                <th>Fecha Registro</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customer-credits-tbody">
+                            <!-- Credit rows for the customer -->
+                        </tbody>
+                    </table>
+                </div>
+                 <p id="no-credits-message" class="empty-list-message hidden">Este cliente no tiene créditos registrados.</p>
+            </div>
+
+            <!-- Credit Details View -->
+            <div id="credit-details-view" class="view">
+                <button class="back-button" id="back-to-customer-details-btn">&larr; Volver a Detalles del Cliente</button>
+                <h2 id="credit-detail-customer-name"></h2>
+                <h3>Detalles del Crédito</h3>
+                 <div class="credit-info-grid">
+                    <p><strong>Monto Principal:</strong> <span id="credit-detail-amount"></span></p>
+                    <p><strong>Saldo Pendiente:</strong> <span id="credit-detail-balance"></span></p>
+                    <p><strong>Fecha de Registro:</strong> <span id="credit-detail-date"></span></p>
+                    <p><strong>Estado:</strong> <span id="credit-detail-status"></span></p>
+                </div>
+
+                <div class="credit-actions-bar">
+                     <button id="print-credit-statement-pdf-btn" class="button-secondary">Estado de Cuenta (PDF)</button>
+                     <button id="print-credit-receipt-btn" class="button-secondary">Imprimir Recibo Crédito</button>
+                </div>
+
+                <h4>Pagos</h4>
+                <button id="add-payment-btn">Registrar Pago</button>
+                <div id="add-payment-form-container" class="hidden form-container">
+                    <h4>Registrar Nuevo Pago</h4>
+                    <form id="add-payment-form">
+                        <div>
+                            <label for="payment-amount">Monto del Pago:</label>
+                            <input type="number" id="payment-amount" step="0.01" required placeholder="Ej: 50.00">
+                        </div>
+                        <button type="submit">Registrar Pago</button>
+                        <button type="button" id="cancel-add-payment">Cancelar</button>
+                    </form>
+                </div>
+                 <div class="table-responsive">
+                    <table id="credit-payments-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th> 
+                                <th>Tipo</th>
+                                <th>Monto</th>
+                                <th>Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="credit-payments-tbody">
+                            <!-- Payment rows for the credit -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-payments-message" class="empty-list-message hidden">No hay pagos registrados para este crédito.</p>
+            </div>
+
+            <!-- Suppliers View -->
+            <div id="suppliers-view" class="view">
+                <button id="back-to-supplier-actions-from-list-btn" class="button-secondary back-button">&larr; Volver a Opciones de Suplidor</button>
+                <h2>Suplidores</h2>
+                <div class="search-bar-container">
+                    <input type="search" id="search-supplier" placeholder="Buscar suplidor por nombre...">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                <div class="table-responsive">
+                    <table id="supplier-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Teléfono</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplier-list-tbody">
+                            <!-- Supplier rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-suppliers-message" class="empty-list-message hidden">No hay suplidores registrados.</p>
+            </div>
+
+            <!-- Add Supplier View/Form -->
+            <div id="add-supplier-view" class="view">
+                <h2>Nuevo Suplidor</h2>
+                <form id="add-supplier-form">
+                    <div>
+                        <label for="supplier-name">Nombre:</label>
+                        <input type="text" id="supplier-name" required placeholder="Nombre del Suplidor">
+                    </div>
+                    <div>
+                        <label for="supplier-phone">Teléfono:</label>
+                        <input type="tel" id="supplier-phone" placeholder="Número de teléfono">
+                    </div>
+                    <div>
+                        <label for="supplier-email">Email:</label>
+                        <input type="email" id="supplier-email" placeholder="Correo electrónico">
+                    </div>
+                    <div>
+                        <label for="supplier-address">Dirección:</label>
+                        <input type="text" id="supplier-address" placeholder="Dirección del suplidor">
+                    </div>
+                    <div>
+                        <label for="supplier-notes">Notas Adicionales:</label>
+                        <textarea id="supplier-notes" placeholder="Información adicional sobre el suplidor"></textarea>
+                    </div>
+                    <button type="submit" id="save-supplier-btn">Guardar Suplidor</button>
+                    <button type="button" id="back-to-supplier-actions-from-add-btn" class="button-secondary">Volver</button>
+                </form>
+            </div>
+
+            <!-- Supplier Details View -->
+            <div id="supplier-details-view" class="view">
+                <button class="back-button" id="back-to-suppliers-btn">&larr; Volver a Suplidores</button>
+                <h2 id="supplier-detail-name"></h2>
+                <div class="customer-info-grid"> 
+                    <p><strong>Teléfono:</strong> <span id="supplier-detail-phone"></span></p>
+                    <p><strong>Email:</strong> <span id="supplier-detail-email"></span></p>
+                    <p><strong>Dirección:</strong> <span id="supplier-detail-address"></span></p>
+                    <p><strong>Notas:</strong> <span id="supplier-detail-notes"></span></p>
+                </div>
+                 <div class="customer-summary-info"> 
+                    <h3>Resumen de Pagos al Suplidor</h3>
+                    <p><strong>Total Pagado:</strong> <span id="supplier-detail-total-paid" class="total-balance-value">-</span></p>
+                </div>
+                <div class="customer-actions-bar"> 
+                    <button id="print-supplier-payments-report-pdf-btn" class="button-secondary">Reporte Pagos (PDF)</button>
+                    <button id="print-supplier-payments-receipt-btn" class="button-secondary">Imprimir Recibo Pagos</button>
+                </div>
+
+                <h3>Pagos Realizados</h3>
+                <button id="add-supplier-payment-btn">Registrar Pago a Suplidor</button>
+                <div id="add-supplier-payment-form-container" class="hidden form-container">
+                    <h4>Registrar Nuevo Pago</h4>
+                    <form id="add-supplier-payment-form">
+                        <div>
+                            <label for="supplier-payment-amount">Monto:</label>
+                            <input type="number" id="supplier-payment-amount" step="0.01" required placeholder="Ej: 200.00">
+                        </div>
+                        <div>
+                            <label for="supplier-payment-date">Fecha de Pago:</label>
+                            <input type="date" id="supplier-payment-date" required>
+                        </div>
+                        <div>
+                            <label for="supplier-payment-notes">Concepto/Notas:</label>
+                            <input type="text" id="supplier-payment-notes" placeholder="Ej: Factura #123">
+                        </div>
+                        <button type="submit">Registrar Pago</button>
+                        <button type="button" id="cancel-add-supplier-payment">Cancelar</button>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table id="supplier-payments-table">
+                        <thead>
+                            <tr>
+                                <th>Monto Pagado</th>
+                                <th>Fecha de Pago</th>
+                                <th>Concepto/Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supplier-payments-tbody">
+                            <!-- Payment rows for the supplier -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-supplier-payments-message" class="empty-list-message hidden">No hay pagos registrados para este suplidor.</p>
+            </div>
+
+            <!-- Daily Sales View -->
+            <div id="daily-sales-view" class="view">
+                <h2>Ventas Diarias</h2>
+                <div class="controls-bar" style="margin-bottom: var(--spacing-unit);">
+                     <button id="back-to-daily-sales-actions-from-list-btn" class="button-secondary back-button">&larr; Volver a Opciones de Ventas</button>
+                     <input type="month" id="sales-month-filter" title="Filtrar por mes">
+                </div>
+                 <div class="customer-actions-bar" style="border-top: none; padding-top:0; margin-top: var(--spacing-unit);">
+                    <button id="print-daily-sales-report-pdf-btn" class="button-secondary">Reporte Ventas del Mes (PDF)</button>
+                    <button id="print-daily-sales-summary-receipt-btn" class="button-secondary">Resumen Ventas del Mes (Recibo)</button>
+                </div>
+                <div class="table-responsive">
+                    <table id="daily-sales-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Monto Total Venta</th>
+                                <th>Notas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="daily-sales-tbody">
+                            <!-- Daily sales rows will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+                <p id="no-daily-sales-message" class="empty-list-message hidden">No hay ventas diarias registradas para el mes seleccionado.</p>
+            </div>
+
+            <!-- Add Daily Sale View/Form -->
+            <div id="add-daily-sale-view" class="view">
+                <h2>Registrar Venta Diaria</h2>
+                <form id="add-daily-sale-form">
+                    <div>
+                        <label for="daily-sale-date">Fecha de Venta:</label>
+                        <input type="date" id="daily-sale-date" required>
+                    </div>
+                    <div>
+                        <label for="daily-sale-amount">Monto Total de Venta:</label>
+                        <input type="number" id="daily-sale-amount" step="0.01" required placeholder="Ej: 550.75">
+                    </div>
+                    <div>
+                        <label for="daily-sale-notes">Notas Adicionales:</label>
+                        <textarea id="daily-sale-notes" placeholder="Detalles de la venta, caja, etc."></textarea>
+                    </div>
+                    <button type="submit" id="save-daily-sale-btn">Guardar Venta</button>
+                    <button type="button" id="back-to-daily-sales-actions-from-add-btn" class="button-secondary">Volver</button>
+                </form>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="view">
+                <h2>Configuración</h2>
+                <form id="settings-form">
+                    <div>
+                        <label for="currency-symbol">Símbolo de Moneda:</label>
+                        <input type="text" id="currency-symbol" required placeholder="Ej: $">
+                    </div>
+                     <div hidden>
+                        <label for="font-size-slider">Tamaño de Letra (<span id="font-size-value">100</span>%):</label>
+                        <input type="range" id="font-size-slider" min="80" max="150" value="100" step="5">
+                    </div>
+                    
+                    <div hidden>
+                        <label>Modo de Base de Datos:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="db-mode-localstorage" name="database-mode" value="localStorage" checked>
+                            <label for="db-mode-localstorage" class="radio-label">LocalStorage (Navegador)</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="db-mode-api" name="database-mode" value="api">
+                            <label for="db-mode-api" class="radio-label">API (Servidor Externo)</label>
+                        </div>
+                    </div>
+
+                    <div id="api-url-container" class="hidden">
+                        <label for="api-url">URL de la API:</label>
+                        <input type="url" id="api-url" placeholder="https://su.api.com/endpoint">
+                    </div>
+
+                    <button type="submit">Guardar Configuración</button>
+                </form>
+            </div>
+
+            <!-- NEW: Customer Actions View -->
+            <div id="customer-actions-view" class="view">
+                <h2>Gestión de Clientes</h2>
+                <div class="centered-actions">
+                    <button id="action-show-add-customer-form-btn" class="actions-large-btn "><i class="fa fa-user-plus"></i> <span>Agregar Nuevo Cliente</span></button>
+                    <button id="action-show-active-credits-list-btn" class="actions-large-btn "><i class="fa fa-credit-card"></i><span>Creditos Activos</span></button>
+                    <button id="action-show-customer-list-btn" class="actions-large-btn "><i class="fa fa-list"></i><span>Ver Clientes Registrados</span></button>
+                </div>
+            </div>
+
+            <!-- NEW: Supplier Actions View -->
+            <div id="supplier-actions-view" class="view">
+                <h2>Gestión de Suplidores</h2>
+                <div class="centered-actions">
+                    <button id="action-show-add-supplier-form-btn" class="actions-large-btn"><i class="fa fa-truck"></i><span>Agregar Nuevo Suplidor</span></button>
+                    <button id="action-show-supplier-list-btn" class="actions-large-btn"><i class="fa fa-list"></i><span>Ver Suplidores Registrados</span></button>
+                </div>
+            </div>
+
+            <!-- NEW: Daily Sales Actions View -->
+            <div id="daily-sales-actions-view" class="view">
+                <h2>Gestión de Ventas Diarias</h2>
+                <div class="centered-actions">
+                    <button id="action-show-add-daily-sale-form-btn" class="actions-large-btn"><i class="fa fa-cash-register"></i><span>Registrar Nueva Venta</span></button>
+                    <button id="action-show-daily-sales-list-btn" class="actions-large-btn"><i class="fa fa-list"></i><span>Ver Ventas Registradas</span></button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="notification-container"></div>
+
+    <div id="about-modal" class="about-modal hidden">
+        <div class="about-modal-card">
+          <div class="about-modal-body">
+            <div class="about-modal-text">
+              <h2>Samuel A. Duran</h2> <span> Developer </span>
+              <p>Desarrollador de software especializado en sistemas modulares, gestión de proyectos y soluciones empresariales. Apasionado por la innovación y el diseño funcional.</p>
+            </div>
+            <div class="about-modal-image">
+              <img class="img" src="../img/author.png" alt="Foto de Samuel">
+            </div>
+          </div>
+          <button hidden id="about-modal-close-btn" class="about-modal-close">Cerrar</button>
+        </div>
+      </div>
+      
+      <div id="server-error-modal" class="server-error-modal hidden">
+        <div class="server-error-modal-card">
+          <h2>Error del servidor</h2>
+          <p>Algo salió mal. Intenta de nuevo.</p>
+          <img class="img" src="../img/error.png" alt="Foto de Samuel">
+        </div>
+      </div>
+      
+
+    <div id="app-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body">
+                <p>Modal content goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-cancel-btn" class="button-secondary">Cancelar</button>
+                <button id="modal-confirm-btn" class="button-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
