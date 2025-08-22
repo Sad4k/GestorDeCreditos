@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 // Middleware para permitir JSON
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000', // Cambia esto a la URL de tu frontend
+  origin: 'https://gestordecreditos.onrender.com/', // Cambia esto a la URL de tu frontend
   credentials: true // Permite el envío de cookies de sesión
 }));
 
@@ -54,3 +54,4 @@ app.use('/api', apiRoutes);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+
